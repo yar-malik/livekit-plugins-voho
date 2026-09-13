@@ -85,7 +85,7 @@ class TTS(tts.TTS):
         self._pool = utils.ConnectionPool[aiohttp.ClientWebSocketResponse](
             connect_cb=self._connect_ws,
             close_cb=self._close_ws,
-            # Idle sockets are cut by the proxy at 60 s; refresh on use, so a
+            # Idle sockets are cut by the proxy at 120 s; refresh on use, so a
             # socket in steady use lives on and one left idle is replaced.
             max_session_duration=50,
             mark_refreshed_on_get=True,
