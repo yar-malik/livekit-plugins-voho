@@ -1,0 +1,22 @@
+name: publish
+
+# Publishing a GitHub release tagged vX.Y.Z builds the package and uploads it
+# to PyPI using trusted publishing: no API token is stored anywhere. The PyPI
+# project must list this repository and workflow as a trusted publisher.
+on:
+  release:
+    types: [published]
+
+jobs:
+  pypi:
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install build && python -m build
+      - uses: pypa/gh-action-pypi-publish@release/v1
